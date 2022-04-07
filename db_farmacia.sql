@@ -73,3 +73,9 @@ drop view if exists stock;
 
 CREATE VIEW stock as SELECT compratotal.nombre, (compratotal.comprasRealizadas - ventatotal.ventasRealizadas) AS stock 
 FROM ventatotal, compratotal WHERE ventatotal.idProducto_fk = compratotal.idProducto_fk GROUP BY ventatotal.idProducto_fk;
+
+DELIMITER //
+CREATE PROCEDURE proc_actualizar_precio_producto (IN identificador INT, IN nuevoPrecio FLOAT)
+BEGIN
+	UPDATE producto SET producto.precioVenta = nuevoPrecio WHERE producto.idProducto = identificador;
+END; //
